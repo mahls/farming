@@ -7,7 +7,9 @@ import {
     DialogTrigger,
     DialogClose,
 } from "@/components/ui/dialog"
+import { Progress } from "@/components/ui/progress"
 import {useState} from "react";
+import {useToast} from "@/components/ui/use-toast";
 
 interface FarmPatchProps {
     collected: unknown,
@@ -27,6 +29,7 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
 
     const [readyToHarvest, setReadyToHarvest] = useState(false);
     const [treeGrownPercentage, setTreeGrownPercentage] = useState(0)
+    const { toast } = useToast()
 
     const handleState = () => {
         if (treeGrownPercentage === 0) {
@@ -73,6 +76,10 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
     const harvest = () => {
         if(treeGrownPercentage == 10 && readyToHarvest) {
             console.log('harvesting');
+            toast({
+                title: "Harvested",
+                description: "Tree Harvested",
+            })
             const randomNumber = Math.floor(Math.random() * 50) + 1;
             setCoins(coins + randomNumber);
             setTreeGrownPercentage(0)
@@ -101,6 +108,8 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
                         </DialogHeader>
                     </DialogContent>
                 </Dialog>
+                    <Progress value={treeGrownPercentage * 10} />
+
                 </div>
 
 
