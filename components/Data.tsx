@@ -1,7 +1,6 @@
 "use client";
 import Lottie from 'react-lottie';
 import * as animationData from '../animation-coins.json'
-import AnimatedNumbers from "react-animated-numbers"
 
 interface DataProps {
     mouseX: number,
@@ -24,17 +23,18 @@ const defaultOptions = {
 
 
 
-export const Data = ({ mouseX, mouseY, level, experience, coins, isStoppedLottieCoins, setIsStoppedLottieCoins }: DataProps) => {
+export const Data = ({ mouseX, mouseY, level, experience, coins, isStoppedLottieCoins, }: DataProps) => {
 
 
 
 
+    // @ts-ignore
     return(
         <div className={`text-stone-400 w-[25%] flex p-2 fixed left-5 top-5 border border-stone-400 bg-stone-800 rounded`}>
             <div className={`pr-2`}>MouseX: {mouseX}</div>
             <div className={`pr-2`}>MouseY: {mouseY}</div>
             <div className={`pr-2`}>Coins: {coins}</div>
-            <Lottie  className={`absolute right-20`}
+            <Lottie
                      options={defaultOptions}
                      height={40}
                      width={40}

@@ -27,6 +27,7 @@ interface FarmPatchProps {
     farmPatches: ({ grownPercent: number; timeToGrow: number; collected: boolean })[]
 }
 
+// @ts-ignore
 export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPatchProps) => {
 
     const defaultOptions = {
@@ -105,7 +106,6 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPat
     return(
             <>
                 <Lottie
-                    className={`fixed top-5`}
                     options={defaultOptions}
                         height={40}
                         width={50}

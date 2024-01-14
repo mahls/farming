@@ -28,7 +28,7 @@ interface ShopProps {
 
 export const Shop = ({ inventory, coins, setCoins, setInventory, shopItems }: ShopProps) => {
     const [shopOpen, setShopOpen] = useState(false);
-    const shopRef = useRef(null);
+    const shopRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleOutsideClick = (event: { target: any; }) => {
