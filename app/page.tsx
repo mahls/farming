@@ -4,7 +4,8 @@ import {Inventory} from '@/components/Inventory'
 import {Shop} from '@/components/Shop'
 import {useEffect, useState} from 'react';
 import {FarmPatch} from '@/components/FarmPatch'
-
+import Lottie from 'react-lottie';
+import * as animationData from '../animation-coins.json'
 
 export default function Home() {
 
@@ -14,6 +15,7 @@ export default function Home() {
     const [droptable, setRewards] = useState([{},{},{}]);
     const [coins, setCoins] = useState(200);
     const [time, set] = useState();
+    const [isStoppedLottieCoins, setIsStoppedLottieCoins] = useState(true)
 
     const [farmPatches, setFarmPatches] = useState([
         {collected: false, grownPercent: 0, timeToGrow: Math.floor(Math.random() * 100) + 1},
@@ -24,7 +26,6 @@ export default function Home() {
 
     const [inventory, setInventory] = useState([        {name: '', image: ''},
     ])
-
 
     let shopItems = [
         {name: 'White Rabbit', image:'data:image/jpeg;base64,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', price: 100},
@@ -61,7 +62,7 @@ export default function Home() {
   // @ts-ignore
     return (
     <main onMouseMove={handleMouseMove} className="flex min-h-screen bg-stone-900 text-white">
-        <Data  coins={coins} mouseX={mousePosition.x} mouseY={mousePosition.y} level={level} experience={experience}/>
+        <Data setIsStoppedLottieCoins={setIsStoppedLottieCoins} isStoppedLottieCoins={isStoppedLottieCoins} coins={coins} mouseX={mousePosition.x} mouseY={mousePosition.y} level={level} experience={experience}/>
         <Inventory inventory={inventory}/>
         <Shop shopItems={shopItems} setInventory={setInventory} setCoins={setCoins} inventory={inventory} coins={coins}/>
         <div className={`flex justify-center align-items-center align-center w-screen items-center`}>
@@ -76,7 +77,11 @@ export default function Home() {
                             coins={coins}
                             setCoins={setCoins}
                             farmPatches={farmPatches}
-                            setFarmPatches={setFarmPatches}/>
+                            setFarmPatches={setFarmPatches}
+                            setIsStoppedLottieCoins={setIsStoppedLottieCoins}
+                            level={level}
+                            experience={experience}
+                        />
                     </div>
                 ))
             }

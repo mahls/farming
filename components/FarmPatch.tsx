@@ -10,6 +10,8 @@ import {
 import { Progress } from "@/components/ui/progress"
 import {useState} from "react";
 import {useToast} from "@/components/ui/use-toast";
+import Lottie from 'react-lottie';
+import * as animationData from '../animation-magic.json'
 
 interface FarmPatchProps {
     collected: unknown,
@@ -25,7 +27,16 @@ interface FarmPatchProps {
     farmPatches: ({ grownPercent: number; timeToGrow: number; collected: boolean })[]
 }
 
-export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins, setFarmPatches, farmPatches }: FarmPatchProps) => {
+export const FarmPatch = ({ coins, setCoins,}: FarmPatchProps) => {
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
 
     const [readyToHarvest, setReadyToHarvest] = useState(false);
     const [treeGrownPercentage, setTreeGrownPercentage] = useState(0)
@@ -83,6 +94,7 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
             const randomNumber = Math.floor(Math.random() * 50) + 1;
             setCoins(coins + randomNumber);
             setTreeGrownPercentage(0)
+
         } else {
             console.log('not harvesting');
             alert('not finished growing')
@@ -91,8 +103,15 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
 
     return(
             <>
+                <Lottie
+                    className={`fixed top-5`}
+                    options={defaultOptions}
+                        height={40}
+                        width={50}
+                />
                 <div className="p-4 mx-5 text-2xl border border-lime-600 bg-stone-800 rounded flex-wrap cursor-pointer">
-                <Dialog>
+
+                    <Dialog>
                     <DialogTrigger>{handleState()}</DialogTrigger>
                     <DialogContent className={`bg-stone-900 text-white border-stone-900`}>
                         <DialogHeader>
@@ -108,7 +127,7 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
                         </DialogHeader>
                     </DialogContent>
                 </Dialog>
-                    <Progress value={treeGrownPercentage * 10} />
+                    <Progress className={`bg-stone-200`} value={treeGrownPercentage * 10} />
 
                 </div>
 
