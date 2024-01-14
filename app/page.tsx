@@ -58,7 +58,8 @@ export default function Home() {
     };
 
 
-  return (
+  // @ts-ignore
+    return (
     <main onMouseMove={handleMouseMove} className="flex min-h-screen bg-stone-900 text-white">
         <Data  coins={coins} mouseX={mousePosition.x} mouseY={mousePosition.y} level={level} experience={experience}/>
         <Inventory inventory={inventory}/>
@@ -74,9 +75,8 @@ export default function Home() {
                             key={index}
                             coins={coins}
                             setCoins={setCoins}
-                            setFarmPatches={setFarmPatches}
                             farmPatches={farmPatches}
-                        />
+                            setFarmPatches={setFarmPatches}/>
                     </div>
                 ))
             }

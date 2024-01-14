@@ -11,7 +11,7 @@ export const Inventory = ({inventory}: InventoryProps) => {
             {
                 inventory.map((item, index) => {
                     return (
-                        <div className={`pr-2`}>
+                        <div key={index} className={`pr-2`}>
                             <div className={``}>{item?.name}</div>
                         </div>
                     )

@@ -91,7 +91,7 @@ export const FarmPatch = ({ collected, grownPercent, timeToGrow, coins, setCoins
 
     return(
             <>
-                <div className="p-4 mx-5 text-2xl border border-lime-600 bg-stone-800 rounded  cursor-pointer">
+                <div className="p-4 mx-5 text-2xl border border-lime-600 bg-stone-800 rounded flex-wrap cursor-pointer">
                 <Dialog>
                     <DialogTrigger>{handleState()}</DialogTrigger>
                     <DialogContent className={`bg-stone-900 text-white border-stone-900`}>

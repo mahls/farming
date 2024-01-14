@@ -76,9 +76,9 @@ export const Shop = ({ inventory, coins, setCoins, setInventory, shopItems }: Sh
                 ref={shopRef}
                 className={`${shopOpen ? "fixed" : "hidden"} top-20 right-5 p-2 border border-stone-400 bg-stone-800 rounded`}
             >
-                {shopItems.map((item) => (
+                {shopItems.map((item, index) => (
                     // eslint-disable-next-line react/jsx-key
-                    <Dialog>
+                    <Dialog key={index}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <DialogTrigger className={`mr-4`}>{item.name} <img height="60" width="60" src={item.image} alt="rabbit"/> {item.price}</DialogTrigger>
                         <DialogContent className={``}>
