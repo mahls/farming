@@ -43,7 +43,12 @@ export default function Home() {
                 return 2;
             } else if (experience >= 200) {
                 return 3;
-            } else {
+            } else if (experience >= 400) {
+                return 4;
+            } else if (experience >= 600) {
+                return 5;
+            }
+            else {
                 return level; // Return the current level if experience is negative (or unexpected)
             }
         };
@@ -80,7 +85,9 @@ export default function Home() {
                             setFarmPatches={setFarmPatches}
                             setIsStoppedLottieCoins={setIsStoppedLottieCoins}
                             level={level}
+                            setLevel={setLevel}
                             experience={experience}
+                            setExperience={setExperience}
                         />
                     </div>
                 ))

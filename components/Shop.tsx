@@ -80,7 +80,7 @@ export const Shop = ({ inventory, coins, setCoins, setInventory, shopItems }: Sh
                     // eslint-disable-next-line react/jsx-key
                     <Dialog key={index}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <DialogTrigger className={`mr-4`}>{item.name} <img height="60" width="60" src={item.image} alt="rabbit"/> {item.price}</DialogTrigger>
+                        <DialogTrigger className={`mr-4 text-stone-400`}>{item.name} <img height="60" width="60" src={item.image} alt="rabbit"/> {item.price}</DialogTrigger>
                         <DialogContent className={``}>
                             <DialogHeader>
                                 <DialogTitle>Are you absolutely sure?</DialogTitle>

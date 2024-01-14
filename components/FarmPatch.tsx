@@ -27,7 +27,7 @@ interface FarmPatchProps {
     farmPatches: ({ grownPercent: number; timeToGrow: number; collected: boolean })[]
 }
 
-export const FarmPatch = ({ coins, setCoins,}: FarmPatchProps) => {
+export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPatchProps) => {
 
     const defaultOptions = {
         loop: true,
@@ -94,6 +94,7 @@ export const FarmPatch = ({ coins, setCoins,}: FarmPatchProps) => {
             const randomNumber = Math.floor(Math.random() * 50) + 1;
             setCoins(coins + randomNumber);
             setTreeGrownPercentage(0)
+            setExperience(experience + 20)
 
         } else {
             console.log('not harvesting');
