@@ -9,15 +9,24 @@ interface SeedSelectionProps {
 
 
 // eslint-disable-next-line react/display-name
-export const SeedSelection = memo( ({ setSelectedSeed, selectedSeed }: SeedSelectionProps) => {
+interface SeedSelectionProps {
+    treeGrown: boolean
+}
+
+// eslint-disable-next-line react/display-name
+export const SeedSelection = memo( ({ setSelectedSeed, selectedSeed, treeGrown }: SeedSelectionProps) => {
 
     let seedSelectStyle = `rounded bg-stone-900 py-2 m-2 align-center transition flex justify-center text-center hover:bg-stone-600 cursor-pointer`
 
     const changeSeed = (a: string) => {
-        let seed: string = a;
-        console.log(seed)
-        setSelectedSeed(seed);
-        alert(`selected Seed is ${seed}`)
+        if(!treeGrown) {
+            let seed: string = a;
+            console.log(seed)
+            setSelectedSeed(seed);
+            alert(`selected Seed is ${seed}`)
+        } else {
+            alert("Harvest trees first")
+        }
     };
 
     return(

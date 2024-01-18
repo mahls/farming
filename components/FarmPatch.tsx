@@ -40,7 +40,7 @@ interface FarmPatchProps {
 }
 
 // @ts-ignore
-export const FarmPatch = ({ coins, setCoins, setExperience, experience, selectedSeed, setSelectedSeed }: FarmPatchProps) => {
+export const FarmPatch = ({ coins, setCoins, setExperience, experience, selectedSeed, setSelectedSeed, treeGrown, setTreeGrown }: FarmPatchProps) => {
 
     const [hasSelected, setHasSelected] = useState(false)
 
@@ -61,20 +61,28 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience, selected
     const handleState = () => {
         try {
             if (treeGrownPercentage === 0) {
+                console.log(treeGrown)
                 return <div className={`p-2 px-4`}>💧</div>;
             } else if (treeGrownPercentage < 4) {
+                setTreeGrown(true)
+                console.log(treeGrown)
                 return <div className={`p-2 px-4`}>🌱</div>;
             } else if (treeGrownPercentage < 10) {
-                console.log(selectedSeed);
                 return <div className={`p-2 px-4`}>🪴</div>;
             } else if (treeGrownPercentage === 10 && selectedSeed === 'A') {
-                console.log(selectedSeed);
+                setTreeGrown(true)
                 return <div className={`p-2 px-4`}>🌵</div>;
             } else if (treeGrownPercentage === 10 && selectedSeed === 'B') {
+                setTreeGrown(true)
+                console.log(treeGrown)
                 return <div className={`p-2`}>🌳</div>;
             } else if (treeGrownPercentage === 10 && selectedSeed === 'C') {
+                setTreeGrown(true)
+                console.log(treeGrown)
                 return <div className={`p-2`}>🌲</div>;
             } else if (treeGrownPercentage === 10 && selectedSeed === 'D') {
+                setTreeGrown(true)
+                console.log(treeGrown)
                 return <div className={`p-2`}>🌿</div>;
             }
             return null;
