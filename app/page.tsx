@@ -6,6 +6,7 @@ import { SeedSelection } from '@/components/SeedSelection'
 import {useEffect, useState, useRef} from 'react';
 import {FarmPatch} from '@/components/FarmPatch'
 import Snowfall from 'react-snowfall'
+import {Farming} from '@/components/Farming'
 import Lottie from 'react-lottie';
 import * as animationData from '../animation-coins.json'
 
@@ -73,6 +74,7 @@ export default function Home() {
 
     return (
     <main onMouseMove={handleMouseMove} className="flex min-h-screen bg-stone-900 text-white">
+        <Farming/>
         <Snowfall
             color="grey"
             snowflakeCount={6}
