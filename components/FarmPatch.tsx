@@ -8,7 +8,7 @@ import {
     DialogClose,
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useToast} from "@/components/ui/use-toast";
 import Lottie from 'react-lottie';
 import * as animationData from '../animation-magic.json'
@@ -40,7 +40,9 @@ interface FarmPatchProps {
 }
 
 // @ts-ignore
-export const FarmPatch = ({ coins, setCoins, setExperience, experience, selectedSeed }: FarmPatchProps) => {
+export const FarmPatch = ({ coins, setCoins, setExperience, experience, selectedSeed, setSelectedSeed }: FarmPatchProps) => {
+
+    const [hasSelected, setHasSelected] = useState(false)
 
     const defaultOptions = {
         loop: true,
@@ -53,35 +55,37 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience, selected
 
     const [readyToHarvest, setReadyToHarvest] = useState(false);
     const [treeGrownPercentage, setTreeGrownPercentage] = useState(0)
+
     const { toast } = useToast()
 
     const handleState = () => {
-        if (treeGrownPercentage === 0) {
-            return (
-                <div className={`p-2 px-4`}>💧</div>
-            );
-        } else if (treeGrownPercentage < 4) {
-            return (
-                <div className={`p-2 px-4`}>🌱</div>
-            );
-        } else if (treeGrownPercentage < 10) {
-            console.log(selectedSeed)
-            return (
-                <div className={`p-2 px-4`}>🪴</div>
-            );
-        } else if (treeGrownPercentage === 10 && selectedSeed == 'A') {
-            // change to "treeGrownPercent == 10 and it will work properly. For some reason cannot work it with the selectedSeed State.
-            console.log(selectedSeed)
-            return (
-                <div className={`p-2 px-4`}>🌵</div>
-            );
-        } else if (treeGrownPercentage === 10 && selectedSeed == 'B') {
-            return (
-                <div className={`p-2`}>🌲</div>
-            );
-
+        try {
+            if (treeGrownPercentage === 0) {
+                return <div className={`p-2 px-4`}>💧</div>;
+            } else if (treeGrownPercentage < 4) {
+                return <div className={`p-2 px-4`}>🌱</div>;
+            } else if (treeGrownPercentage < 10) {
+                console.log(selectedSeed);
+                return <div className={`p-2 px-4`}>🪴</div>;
+            } else if (treeGrownPercentage === 10 && selectedSeed === 'A') {
+                console.log(selectedSeed);
+                return <div className={`p-2 px-4`}>🌵</div>;
+            } else if (treeGrownPercentage === 10 && selectedSeed === 'B') {
+                return <div className={`p-2`}>🌳</div>;
+            } else if (treeGrownPercentage === 10 && selectedSeed === 'C') {
+                return <div className={`p-2`}>🌲</div>;
+            } else if (treeGrownPercentage === 10 && selectedSeed === 'D') {
+                return <div className={`p-2`}>🌿</div>;
+            }
+            return null;
+        } catch (error) {
+            // Handle the error or log it
+            console.error('Error in handleState:', error);
+            // Optionally, you can return a default value or UI for error cases
+            return <div className={`p-2 px-4 text-red-500`}>Error occurred</div>;
         }
     };
+
 
     const plantSeed = () => {
         // check if nothing is growing already
@@ -138,7 +142,7 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience, selected
                     <DialogTrigger className={`z-50`}>{handleState()}</DialogTrigger>
                     <DialogContent className={`z-50 bg-stone-900 text-white border-stone-900`}>
                         <DialogHeader>
-                            <DialogTitle className={`mb-2`}>Farm Patch Options</DialogTitle>
+                            <DialogTitle className={`mb-2 z-50`}>Farm Patch Options</DialogTitle>
                             <DialogClose asChild>
                                 <button onClick={plantSeed} className={`border border-stone-800 rounded hover:bg-green-600`}>Plant seed
                                 </button>

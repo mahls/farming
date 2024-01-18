@@ -5,6 +5,7 @@ import {Shop} from '@/components/Shop'
 import { SeedSelection } from '@/components/SeedSelection'
 import {useEffect, useState, useRef} from 'react';
 import {FarmPatch} from '@/components/FarmPatch'
+import Snowfall from 'react-snowfall'
 import Lottie from 'react-lottie';
 import * as animationData from '../animation-coins.json'
 
@@ -41,6 +42,7 @@ export default function Home() {
 // add && statement to the if else to check the value of selectedSeed and render accordingly
 
     useEffect(() => {
+        console.log(selectedSeed)
         // Use a function to calculate the new level based on the current experience
         const calculateLevel = () => {
             if (experience >= 0 && experience < 100) {
@@ -71,6 +73,10 @@ export default function Home() {
 
     return (
     <main onMouseMove={handleMouseMove} className="flex min-h-screen bg-stone-900 text-white">
+        <Snowfall
+            color="grey"
+            snowflakeCount={6}
+        />
         <SeedSelection setSelectedSeed={setSelectedSeed} selectedSeed={selectedSeed}/>
         <Data setIsStoppedLottieCoins={setIsStoppedLottieCoins} isStoppedLottieCoins={isStoppedLottieCoins} coins={coins} mouseX={mousePosition.x} mouseY={mousePosition.y} level={level} experience={experience}/>
         <Inventory inventory={inventory}/>
@@ -92,7 +98,8 @@ export default function Home() {
                             setLevel={setLevel}
                             experience={experience}
                             setExperience={setExperience}
-                            selectSeed={selectedSeed}
+                            selectedSeed={selectedSeed}
+                            setSelectedSeed={setSelectedSeed}
                         />
                     </div>
                 ))
