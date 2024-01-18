@@ -14,21 +14,33 @@ import Lottie from 'react-lottie';
 import * as animationData from '../animation-magic.json'
 
 interface FarmPatchProps {
+    selectedSeed: string;
     collected: unknown,
     grownPercent: unknown,
     timeToGrow: unknown,
     coins: number,
     setCoins: (value: (((prevState: number) => number) | number)) => void,
-    setFarmPatches: (value: ({ grownPercent: number; timeToGrow: number; collected: boolean } | {
+    farmPatches: ({
         grownPercent: number;
-        timeToGrow: unknown;
-        collected: unknown
-    })[]) => void,
-    farmPatches: ({ grownPercent: number; timeToGrow: number; collected: boolean })[]
+        timeToGrow: number;
+        collected: boolean
+    })[],
+    setFarmPatches: (value: (((prevState: ({ grownPercent: number; timeToGrow: number; collected: boolean })[]) => ({
+        grownPercent: number;
+        timeToGrow: number;
+        collected: boolean
+    })[]) | ({
+        grownPercent: number;
+        timeToGrow: number;
+        collected: boolean
+    })[])) => void,
+    level: number,
+    setLevel: (value: (((prevState: number) => number) | number)) => void,
+    experience: number
 }
 
 // @ts-ignore
-export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPatchProps) => {
+export const FarmPatch = ({ coins, setCoins, setExperience, experience, selectedSeed }: FarmPatchProps) => {
 
     const defaultOptions = {
         loop: true,
@@ -46,20 +58,28 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPat
     const handleState = () => {
         if (treeGrownPercentage === 0) {
             return (
-                <div className={`p-2`}>🫘</div>
+                <div className={`p-2 px-4`}>💧</div>
             );
         } else if (treeGrownPercentage < 4) {
             return (
-                <div className={`p-2`}>🌱</div>
+                <div className={`p-2 px-4`}>🌱</div>
             );
         } else if (treeGrownPercentage < 10) {
+            console.log(selectedSeed)
             return (
-                <div className={`p-2`}>🪴</div>
+                <div className={`p-2 px-4`}>🪴</div>
             );
-        } else if (treeGrownPercentage === 10) {
+        } else if (treeGrownPercentage === 10 && selectedSeed == 'A') {
+            // change to "treeGrownPercent == 10 and it will work properly. For some reason cannot work it with the selectedSeed State.
+            console.log(selectedSeed)
+            return (
+                <div className={`p-2 px-4`}>🌵</div>
+            );
+        } else if (treeGrownPercentage === 10 && selectedSeed == 'B') {
             return (
                 <div className={`p-2`}>🌲</div>
             );
+
         }
     };
 
@@ -95,7 +115,7 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPat
             const randomNumber = Math.floor(Math.random() * 50) + 1;
             setCoins(coins + randomNumber);
             setTreeGrownPercentage(0)
-            setExperience(experience + 20)
+            setExperience(experience + 40)
 
         } else {
             console.log('not harvesting');
@@ -105,16 +125,18 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPat
 
     return(
             <>
+                <div className={`relative top-20 z-40`}>
                 <Lottie
                     options={defaultOptions}
                         height={40}
                         width={50}
                 />
-                <div className="p-4 mx-5 text-2xl border border-lime-600 bg-stone-800 rounded flex-wrap cursor-pointer">
+                </div>
+                <div className="z-50 p-4 mx-5  text-2xl border border-lime-800 hover:bg-stone-700 bg-stone-800 rounded flex-wrap cursor-pointer">
 
                     <Dialog>
-                    <DialogTrigger>{handleState()}</DialogTrigger>
-                    <DialogContent className={`bg-stone-900 text-white border-stone-900`}>
+                    <DialogTrigger className={`z-50`}>{handleState()}</DialogTrigger>
+                    <DialogContent className={`z-50 bg-stone-900 text-white border-stone-900`}>
                         <DialogHeader>
                             <DialogTitle className={`mb-2`}>Farm Patch Options</DialogTitle>
                             <DialogClose asChild>
@@ -129,7 +151,6 @@ export const FarmPatch = ({ coins, setCoins, setExperience, experience}: FarmPat
                     </DialogContent>
                 </Dialog>
                     <Progress className={`bg-stone-200`} value={treeGrownPercentage * 10} />
-
                 </div>
 
 

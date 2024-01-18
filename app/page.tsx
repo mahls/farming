@@ -2,7 +2,8 @@
 import {Data} from '@/components/Data'
 import {Inventory} from '@/components/Inventory'
 import {Shop} from '@/components/Shop'
-import {useEffect, useState} from 'react';
+import { SeedSelection } from '@/components/SeedSelection'
+import {useEffect, useState, useRef} from 'react';
 import {FarmPatch} from '@/components/FarmPatch'
 import Lottie from 'react-lottie';
 import * as animationData from '../animation-coins.json'
@@ -12,10 +13,12 @@ export default function Home() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [level, setLevel] = useState(1);
     const [experience, setExperience] = useState(0);
-    const [droptable, setRewards] = useState([{},{},{}]);
+    const [droptable, setRewards] = useState([]);
     const [coins, setCoins] = useState(200);
     const [time, set] = useState();
     const [isStoppedLottieCoins, setIsStoppedLottieCoins] = useState(true)
+    const [selectedSeed, setSelectedSeed] = useState('A')
+
 
     const [farmPatches, setFarmPatches] = useState([
         {collected: false, grownPercent: 0, timeToGrow: Math.floor(Math.random() * 100) + 1},
@@ -34,6 +37,9 @@ export default function Home() {
 
     ]
 
+
+// add && statement to the if else to check the value of selectedSeed and render accordingly
+
     useEffect(() => {
         // Use a function to calculate the new level based on the current experience
         const calculateLevel = () => {
@@ -42,6 +48,7 @@ export default function Home() {
             } else if (experience >= 100 && experience < 200) {
                 return 2;
             } else if (experience >= 200) {
+                alert('level 3 congratulations')
                 return 3;
             } else if (experience >= 400) {
                 return 4;
@@ -51,11 +58,10 @@ export default function Home() {
             else {
                 return level; // Return the current level if experience is negative (or unexpected)
             }
-        };
-
+        }
         // Update the level state based on the calculated level
-        setLevel(calculateLevel());
-    }, [experience]);
+            setLevel(calculateLevel());
+    }, [experience, level]);
 
 
     const handleMouseMove = (event: { clientX: any; clientY: any; }) => {
@@ -63,10 +69,9 @@ export default function Home() {
         setMousePosition({ x: clientX, y: clientY });
     };
 
-
-  // @ts-ignore
     return (
     <main onMouseMove={handleMouseMove} className="flex min-h-screen bg-stone-900 text-white">
+        <SeedSelection setSelectedSeed={setSelectedSeed} selectedSeed={selectedSeed}/>
         <Data setIsStoppedLottieCoins={setIsStoppedLottieCoins} isStoppedLottieCoins={isStoppedLottieCoins} coins={coins} mouseX={mousePosition.x} mouseY={mousePosition.y} level={level} experience={experience}/>
         <Inventory inventory={inventory}/>
         <Shop shopItems={shopItems} setInventory={setInventory} setCoins={setCoins} inventory={inventory} coins={coins}/>
@@ -83,17 +88,19 @@ export default function Home() {
                             setCoins={setCoins}
                             farmPatches={farmPatches}
                             setFarmPatches={setFarmPatches}
-                            setIsStoppedLottieCoins={setIsStoppedLottieCoins}
                             level={level}
                             setLevel={setLevel}
                             experience={experience}
                             setExperience={setExperience}
+                            selectSeed={selectedSeed}
                         />
                     </div>
                 ))
             }
+
+
         </div>
 
     </main>
-  )
+    )
 }

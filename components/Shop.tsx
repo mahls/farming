@@ -68,7 +68,7 @@ export const Shop = ({ inventory, coins, setCoins, setInventory, shopItems }: Sh
         <>
             <div
                 onClick={toggleMenu}
-                className={`p-2 border border-stone-400 text-stone-400 bg-stone-800 rounded fixed right-5 top-5 cursor-pointer`}
+                className={`p-2 hover:bg-stone-600 transition border-stone-400 text-stone-400 bg-stone-800 rounded fixed right-5 top-5 cursor-pointer`}
             >
                 Shop
             </div>
